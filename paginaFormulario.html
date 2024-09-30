@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Esta es mi pagina web</title>
+    </head>
+    <body>
+        <div>
+            <form id="myForm" action="javascript:void(0);">
+                <h1>Formulario</h1>
+                <label for="text">Telefono:
+                    <input type="text" name="text" id="text">
+                </label>
+                <br>
+                <label for="checkbox">Checkbox:
+                    <input type="checkbox" name="checkbox" id="checkbox">
+                </label>
+                <br>
+                <label for="color">Color:
+                    <input type="color" name="color" id="color">
+                    <div id="outColor"></div>
+                </label>
+                <button id="boton">
+                    BOTON
+                </button>
+            </form>
+        </div>
+        
+        <div id="output"></div> <!-- Placeholder for the new element -->
+
+        <script>
+            const inputField = document.getElementById("text");
+            const outputDiv = document.getElementById("output");
+            const colorField = document.getElementById("color")
+            const outColor = document.getElementById("outColor")
+            const boton = document.getElementById('boton')
+            // const clases = document.getElementsByClassName('ejemplo')
+            // const linkText = document.getElementById('linkText')
+            // let link 
+            console.log(boton)
+            
+            // setTimeout(() => {
+            //     link = document.createElement('a')
+            //     link.textContent = 'Ir a google'
+            //     link.setAttribute('href', 'https://www.google.com')
+            //     link.setAttribute('target', '_blank')
+            // }, 3000)
+
+            // setTimeout(() => {
+            //     document.body.appendChild(link)
+            // }, 4000)
+
+            boton.addEventListener('click', () => { 
+                if (inputField.value.length === 0) {
+                    outputDiv.textContent = 'El telefono debe tener por lo menos un numero'
+                }     
+            })
+
+            inputField.addEventListener('blur', () => {
+                if (inputField.value.length === 0) {
+                    outputDiv.textContent = 'El telefono debe tener por lo menos un numero'
+                    setTimeout(() => outputDiv.textContent = '', 1500)
+                }   
+            })
+
+
+            
+            inputField.addEventListener("input", function() {
+                const value = inputField.value
+
+                const regex = /^[0-9]*$/ // expresion regular
+
+                console.log(regex.test(value))
+
+                outputDiv.textContent = value
+                
+                if (!regex.test(value)) {
+                    
+                    inputField.value = value.slice(0,value.length-1)
+                
+                }
+            });
+            colorField.addEventListener("input", () => {
+                 outColor.textContent = `Codigo de color: ${colorField.value}`
+            })
+
+
+        </script>
+    </body>
+</html>

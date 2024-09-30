@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacion de peliculas</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    width: 80%;
+    margin:auto
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
+}
+
+form .labels {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 100%;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#movieInfo {
+    display: none;
+    width: 75%;
+    max-height: 300px;
+    margin:auto;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10% 0% 0% 10%;
+}
+
+#movieInfo:hover {
+    scale: 105%;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.1);
+    transition-duration: 200ms;
+}
+
+#movieInfo .info {
+    padding: 10px 20px;
+    border-radius: 10% 0% 0% 10%;
+
+}
+
+#movieInfo img {
+    border-radius: 10% 0% 0% 10%;
+    max-height: 300px;
+}
+
+#movieInfo strong {
+    color: #007BFF;
+}
+
+
+    </style>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    
+    <form id="movieForm">
+        <h1>Información de Peliculas y Series</h1>
+        <div class="labels">
+        <label for="title">Titulo:
+        <input type="text" id="title" name="title" required>
+        </label>
+        <label for="type">Tipo (opcional):
+        <input type="text" id="type" name="type" placeholder="Pelicula, serie, episodio">
+        </label>
+        </div>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div id="movieInfo"></div>
+
+    <script>
+        const apiKey = 'cd9f170b';
+
+        const fetchUrl = async (body) => {
+            const { title, type, resType } = body;
+            const url = `http://www.omdbapi.com/?apikey=${apiKey}&t=${title}&type=${type || ''}&r=${resType || 'json'}`;
+            console.log(url);
+            const response = await axios.get(url).then((res) => res?.data);
+            return response;
+        };
+
+        document.getElementById('movieForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const type = document.getElementById('type').value;
+            const movie1 = {
+                title: title,
+                type: type
+            };
+
+            const movieData = await fetchUrl(movie1);
+
+            const movieInfoDiv = document.getElementById('movieInfo');
+            movieInfoDiv.style.display = 'flex';
+            movieInfoDiv.innerHTML = `
+                <img src=${movieData.Poster}/>
+                <div class='info'>
+                <p><strong>Titulo:</strong> ${movieData.Title}</p>
+                <p><strong>Año:</strong> ${movieData.Year}</p>
+                <p><strong>Génerop:</strong> ${movieData.Genre}</p>
+                <p><strong>Trama:</strong> ${movieData.Plot}</p>
+                <p><strong>Elenco:</strong> ${movieData.Actors}</p>
+                <p><strong>Rating IMDB:</strong> ${movieData.imdbRating}</p>
+                <div/>
+            `
+        });
+    </script>
+</body>
+</html>
