@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Eventos</title>
+    <style>
+        .texto { font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h1 id="titulo">Número de clics: 0</h1>
+    <p class="texto">Texto original.</p>
+    <button id="boton">Cambiar texto</button>
+
+    <script>
+        
+    let contador = 0; // Inicializa un contador de clics  
+
+    // Selecciona el botón, el título y el párrafo  
+    const boton = document.getElementById('boton');  
+    const titulo = document.getElementById('titulo');  
+    const parrafo = document.querySelector('.texto');  
+
+    // Función que se ejecutará al hacer clic en el botón  
+    boton.addEventListener('click', function() {  
+        contador++; // Incrementa el contador  
+        titulo.textContent = `Número de clics: ${contador}`; // Actualiza el título  
+
+        // Cambia el texto del párrafo  
+        if (contador % 2 === 0) {  
+            parrafo.textContent = 'Has hecho clic un número par de veces.';  
+        } else {  
+            parrafo.textContent = 'Has hecho clic un número impar de veces.';  
+        }  
+    });  
+
+    </script>
+</body>
+</html>
