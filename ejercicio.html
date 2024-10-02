@@ -1,40 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>Ejercicio de Eventos</title>
+
     <style>
-        .texto { font-size: 20px; }
+        .texto {
+            font-size: 30px;
+        }
+
+        .mensaje {
+            color: rgb(86, 19, 240);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        #boton {
+            /* tamaño  para el botón */
+            padding: 15px 30px;
+            /* Aumento el espacio interno (alto y ancho) */
+            font-size: 20px;
+            /* Aumento el tamaño de la fuente */
+            width: 200px;
+            /* Establezco un ancho fijo */
+            cursor: pointer;
+            /* Cambia el cursor al pasar sobre el botón */
+        }
     </style>
+
 </head>
+
 <body>
     <h1 id="titulo">Número de clics: 0</h1>
-    <p class="texto">Texto original.</p>
-    <button id="boton">Cambiar texto</button>
+    <p class="texto">Presione Boton para sumar</p>
+    <button id="boton">Boton Add</button>
+    <p id="mensaje" class="mensaje" style="display: none;"></p>
 
     <script>
-        
-    let contador = 0; // Inicializa un contador de clics  
+        let contador = 0; // Inicializo un contador   
 
-    // Selecciona el botón, el título y el párrafo  
-    const boton = document.getElementById('boton');  
-    const titulo = document.getElementById('titulo');  
-    const parrafo = document.querySelector('.texto');  
+        // Selecciono el botón, el título y el mensaje
 
-    // Función que se ejecutará al hacer clic en el botón  
-    boton.addEventListener('click', function() {  
-        contador++; // Incrementa el contador  
-        titulo.textContent = `Número de clics: ${contador}`; // Actualiza el título  
+        const boton = document.getElementById('boton');
+        const titulo = document.getElementById('titulo');
+        const parrafo = document.querySelector('.texto');
+        const mensaje = document.getElementById('mensaje');
 
-        // Cambia el texto del párrafo  
-        if (contador % 2 === 0) {  
-            parrafo.textContent = 'Has hecho clic un número par de veces.';  
-        } else {  
-            parrafo.textContent = 'Has hecho clic un número impar de veces.';  
-        }  
-    });  
+        // Función que se ejecutará al hacer clic en el botón  
 
+        boton.addEventListener('click', function () {
+            contador++;                                             // Incremento el contador  
+            titulo.textContent = `Número de clics: ${contador}`;    // Actualizo el título  
+
+            mensaje.textContent = '¡Hiciste clic! ';     // Mensaje para el usuario  
+            mensaje.style.display = 'block';                        // Aseguro que el mensaje esté visible  
+
+            // Borro el mensaje después de 10 segundos  
+
+            setTimeout(() => {
+                mensaje.style.display = 'none';                    // Oculto el mensaje  
+            }, 1000);                                              // Pongo un tiempo de 1 segundo
+        });  
     </script>
 </body>
+
 </html>
